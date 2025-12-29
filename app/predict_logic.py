@@ -1,44 +1,63 @@
 import os
+import requests
 import tensorflow as tf
-import gdown
+import cv2
+import numpy as np
 
-MODEL_DIR = "model"
-MODEL_PATH = os.path.join(MODEL_DIR, "crop_disease_cnn.h5")
+MODEL_URL = "https://huggingface.co/sakshee1102/crop-disease-cnn/resolve/main/crop_disease_cnn.h5"
+MODEL_PATH = "model/crop_disease_cnn.h5"
 
-MODEL_URL = "https://drive.google.com/uc?id=12JWffPZgJ8HOlc5Su3bwcsOHFw9hS60Z"
-
-model = None  # do NOT load at import time
-
+model = None
 
 def load_model_once():
     global model
+
     if model is None:
-        os.makedirs(MODEL_DIR, exist_ok=True)
+        os.makedirs("model", exist_ok=True)
 
         if not os.path.exists(MODEL_PATH):
-            print("Downloading model from Google Drive...")
-            gdown.download(MODEL_URL, MODEL_PATH, quiet=False)
+            print("Downloading model from Hugging Face...")
+            r = requests.get(MODEL_URL, timeout=60)
+            with open(MODEL_PATH, "wb") as f:
+                f.write(r.content)
 
-        print("Loading model...")
         model = tf.keras.models.load_model(MODEL_PATH)
 
     return model
 
 
+def preprocess_image(image_path):
+    img = cv2.imread(image_path)
+    img = cv2.resize(img, (224, 224))
+    img = img / 255.0
+    img = np.expand_dims(img, axis=0)
+    return img
+
+
 def predict_disease(image_path):
     model = load_model_once()
 
-    from tensorflow.keras.preprocessing import image
-    import numpy as np
+    img = preprocess_image(image_path)
+    preds = model.predict(img)
 
-    img = image.load_img(image_path, target_size=(224, 224))
-    x = image.img_to_array(img)
-    x = np.expand_dims(x, axis=0)
-    x = x / 255.0
+    class_index = int(np.argmax(preds))
+    confidence = float(np.max(preds)) * 100
 
-    preds = model.predict(x)
+    classes = [
+        "Apple Scab",
+        "Apple Black Rot",
+        "Apple Cedar Rust",
+        "Healthy"
+    ]
+
+    disease = classes[class_index]
 
     return {
-        "success": True,
-        "prediction": preds.tolist()
+        "disease": disease,
+        "confidence": round(confidence, 2),
+        "advice": {
+            "symptoms": ["Leaf spots", "Color change"],
+            "treatment": ["Use recommended fungicide"],
+            "prevention": ["Crop rotation", "Avoid excess moisture"]
+        }
     }
