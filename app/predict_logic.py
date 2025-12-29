@@ -1,37 +1,47 @@
-import cv2
-import numpy as np
+import os
 import tensorflow as tf
-import json
+import gdown
 
-model = tf.keras.models.load_model("model/crop_disease_cnn.h5")
+MODEL_DIR = "model"
+MODEL_PATH = os.path.join(MODEL_DIR, "crop_disease_cnn.h5")
 
-with open("model/class_labels.json", encoding="utf-8") as f:
-    classes = json.load(f)
+# Google Drive direct download link
+MODEL_URL = "https://drive.google.com/uc?id=12JWffPZgJ8HOlc5Su3bwcsOHFw9hS60Z"
 
-with open("advisory/disease_advisory.json", encoding="utf-8") as f:
-    advisory = json.load(f)
+model = None  # global model container
+
+def load_model_once():
+    global model
+    if model is None:
+        os.makedirs(MODEL_DIR, exist_ok=True)
+
+        # download only if not already on disk
+        if not os.path.exists(MODEL_PATH):
+            print("Downloading model from Google Drive...")
+            gdown.download(MODEL_URL, MODEL_PATH, quiet=False)
+
+        print("Loading model...")
+        model = tf.keras.models.load_model(MODEL_PATH)
+
+    return model
+
 
 def predict_disease(image_path):
-    img = cv2.imread(image_path)
-    img = cv2.resize(img, (224, 224))
-    img = img / 255.0
-    img = np.expand_dims(img, axis=0)
+    loaded_model = load_model_once()
 
-    pred = model.predict(img)
-    idx = int(np.argmax(pred))
-    confidence = round(float(np.max(pred)) * 100, 2)
+    # --- Example prediction logic (update if needed) ---
+    # preprocess image here
+    from tensorflow.keras.preprocessing import image
+    import numpy as np
 
-    disease = classes[idx]
+    img = image.load_img(image_path, target_size=(224, 224))
+    x = image.img_to_array(img)
+    x = np.expand_dims(x, axis=0)
+    x /= 255.0
 
-    # ⚠️ VERY IMPORTANT: always return advice as object
-    advice = advisory.get(disease, {
-        "symptoms": ["No data available"],
-        "treatment": ["No data available"],
-        "prevention": ["No data available"]
-    })
+    preds = loaded_model.predict(x).tolist()
 
     return {
-        "disease": disease,
-        "confidence": confidence,
-        "advice": advice
+        "success": True,
+        "predictions": preds
     }
