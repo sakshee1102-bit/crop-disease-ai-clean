@@ -13,31 +13,44 @@ function uploadImage() {
     formData.append("image", file);
 
     fetch("/predict", {
-        method: "POST",
-        body: formData
-    })
-    .then(res => {
-        if (!res.ok) throw new Error("Server error " + res.status);
-        return res.json();
-    })
-    .then(data => {
-        let html = `
-            <h3>Disease: ${data.disease}</h3>
-            <p><b>Confidence:</b> ${data.confidence}%</p>
+    method: "POST",
+    body: formData
+})
+.then(res => {
+    if (!res.ok) throw new Error("Server error " + res.status);
+    return res.json();
+})
+.then(data => {
 
-            <h4>Symptoms</h4>
-            <ul>${data.advice.symptoms.map(i => `<li>${i}</li>`).join("")}</ul>
+    if (data.error) {
+        alert(data.error);
+        return;
+    }
 
-            <h4>Treatment</h4>
-            <ul>${data.advice.treatment.map(i => `<li>${i}</li>`).join("")}</ul>
+    // ✅ SAFETY DEFAULT
+    const advice = data.advice || {
+        symptoms: [],
+        treatment: [],
+        prevention: []
+    };
 
-            <h4>Prevention</h4>
-            <ul>${data.advice.prevention.map(i => `<li>${i}</li>`).join("")}</ul>
-        `;
-        document.getElementById("result").innerHTML = html;
-    })
-    .catch(err => {
-        alert(err.message);
-        console.error(err);
-    });
-}
+    let html = `
+        <h3>Disease: ${data.disease || "Unknown"}</h3>
+        <p><b>Confidence:</b> ${data.confidence ?? "N/A"}%</p>
+
+        <h4>Symptoms</h4>
+        <ul>${advice.symptoms.map(i => `<li>${i}</li>`).join("") || "<li>Not available</li>"}</ul>
+
+        <h4>Treatment</h4>
+        <ul>${advice.treatment.map(i => `<li>${i}</li>`).join("") || "<li>Not available</li>"}</ul>
+
+        <h4>Prevention</h4>
+        <ul>${advice.prevention.map(i => `<li>${i}</li>`).join("") || "<li>Not available</li>"}</ul>
+    `;
+
+    document.getElementById("result").innerHTML = html;
+})
+.catch(err => {
+    alert("Prediction failed. Please try again.");
+    console.error(err);
+});
