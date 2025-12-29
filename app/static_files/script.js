@@ -13,41 +13,31 @@ function uploadImage() {
     formData.append("image", file);
 
     fetch("/predict", {
-    method: "POST",
-    body: formData
-})
-
-    .then(res => res.json())
+        method: "POST",
+        body: formData
+    })
+    .then(res => {
+        if (!res.ok) throw new Error("Server error " + res.status);
+        return res.json();
+    })
     .then(data => {
-
-        console.log("Response:", data); // MUST PRINT
-
-        if (data.error) {
-            alert(data.error);
-            return;
-        }
-
-        let result = `
+        let html = `
             <h3>Disease: ${data.disease}</h3>
             <p><b>Confidence:</b> ${data.confidence}%</p>
+
+            <h4>Symptoms</h4>
+            <ul>${data.advice.symptoms.map(i => `<li>${i}</li>`).join("")}</ul>
+
+            <h4>Treatment</h4>
+            <ul>${data.advice.treatment.map(i => `<li>${i}</li>`).join("")}</ul>
+
+            <h4>Prevention</h4>
+            <ul>${data.advice.prevention.map(i => `<li>${i}</li>`).join("")}</ul>
         `;
-
-        result += "<h4>Symptoms</h4><ul>";
-        (data.advice.symptoms || []).forEach(i => result += `<li>${i}</li>`);
-        result += "</ul>";
-
-        result += "<h4>Treatment</h4><ul>";
-        (data.advice.treatment || []).forEach(i => result += `<li>${i}</li>`);
-        result += "</ul>";
-
-        result += "<h4>Prevention</h4><ul>";
-        (data.advice.prevention || []).forEach(i => result += `<li>${i}</li>`);
-        result += "</ul>";
-
-        document.getElementById("result").innerHTML = result;
+        document.getElementById("result").innerHTML = html;
     })
     .catch(err => {
+        alert(err.message);
         console.error(err);
-        alert("Backend connection failed");
     });
 }

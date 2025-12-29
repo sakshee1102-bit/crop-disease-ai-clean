@@ -1,8 +1,8 @@
 from flask import Flask, render_template, request, jsonify
 from flask_cors import CORS
 import os
-from app.predict_logic import predict_disease
 from werkzeug.utils import secure_filename
+from app.predict_logic import predict_disease
 
 app = Flask(
     __name__,

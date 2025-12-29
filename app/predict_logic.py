@@ -45,3 +45,41 @@ def predict_disease(image_path):
             "prevention": ["Avoid excess moisture"]
         }
     }
+def predict_disease(image_path):
+    return {
+        "disease": "Leaf Blight",
+        "confidence": 92.5,
+        "advice": {
+            "symptoms": [
+                "Brown spots on leaves",
+                "Yellowing of leaf edges"
+            ],
+            "treatment": [
+                "Use recommended fungicide",
+                "Remove infected leaves"
+            ],
+            "prevention": [
+                "Avoid excess irrigation",
+                "Use disease-resistant seeds"
+            ]
+        }
+    }
+def predict_disease(image_path):
+    return {
+        "disease": "Leaf Blight",
+        "confidence": 92.5,
+        "advice": {
+            "symptoms": [
+                "Brown spots on leaves",
+                "Yellowing of leaf edges"
+            ],
+            "treatment": [
+                "Use recommended fungicide",
+                "Remove infected leaves"
+            ],
+            "prevention": [
+                "Avoid excess irrigation",
+                "Use disease-resistant seeds"
+            ]
+        }
+    }
