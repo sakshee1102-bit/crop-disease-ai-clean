@@ -12,11 +12,11 @@ function uploadImage() {
     const formData = new FormData();
     formData.append("image", file);
 
-    fetch("https://crop-disease-ai-clean.onrender.com/predict", {
+    fetch("/predict", {
+    method: "POST",
+    body: formData
+})
 
-        method: "POST",
-        body: formData
-    })
     .then(res => res.json())
     .then(data => {
 
