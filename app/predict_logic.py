@@ -1,85 +1,52 @@
 import os
 import requests
-import tensorflow as tf
-import cv2
-import numpy as np
+import base64
 
-MODEL_URL = "https://huggingface.co/sakshee1102/crop-disease-cnn/resolve/main/crop_disease_cnn.h5"
-MODEL_PATH = "model/crop_disease_cnn.h5"
+HF_API_URL = "https://api-inference.huggingface.co/models/sakshee1102/crop-disease-cnn"
+HF_TOKEN = os.environ.get("HF_TOKEN")
 
-os.makedirs("model", exist_ok=True)
-
-if not os.path.exists(MODEL_PATH):
-    print("Downloading model from Hugging Face...")
-    r = requests.get(MODEL_URL, timeout=120)
-    with open(MODEL_PATH, "wb") as f:
-        f.write(r.content)
-
-print("Loading model...")
-model = tf.keras.models.load_model(MODEL_PATH)
-print("Model loaded ✅")
-
-
-def preprocess_image(image_path):
-    img = cv2.imread(image_path)
-    img = cv2.resize(img, (224, 224))
-    img = img / 255.0
-    return np.expand_dims(img, axis=0)
-
+headers = {
+    "Authorization": f"Bearer {HF_TOKEN}",
+    "Content-Type": "application/json"
+}
 
 def predict_disease(image_path):
-    img = preprocess_image(image_path)
-    preds = model.predict(img)
+    if not HF_TOKEN:
+        return {"error": "HF token not set"}
 
-    class_index = int(np.argmax(preds))
-    confidence = float(np.max(preds)) * 100
+    with open(image_path, "rb") as f:
+        image_bytes = f.read()
 
-    classes = ["Apple Scab", "Apple Black Rot", "Apple Cedar Rust", "Healthy"]
+    encoded = base64.b64encode(image_bytes).decode("utf-8")
 
-    return {
-        "disease": classes[class_index],
-        "confidence": round(confidence, 2),
-        "advice": {
-            "symptoms": ["Leaf spots"],
-            "treatment": ["Use fungicide"],
-            "prevention": ["Avoid excess moisture"]
+    payload = {"inputs": encoded}
+
+    try:
+        response = requests.post(
+            HF_API_URL,
+            headers=headers,
+            json=payload,
+            timeout=60
+        )
+
+        if response.status_code != 200:
+            return {
+                "error": "Inference failed",
+                "status": response.status_code,
+                "details": response.text
+            }
+
+        result = response.json()[0]
+
+        return {
+            "disease": result["label"],
+            "confidence": round(result["score"] * 100, 2),
+            "advice": {
+                "symptoms": [],
+                "treatment": [],
+                "prevention": []
+            }
         }
-    }
-def predict_disease(image_path):
-    return {
-        "disease": "Leaf Blight",
-        "confidence": 92.5,
-        "advice": {
-            "symptoms": [
-                "Brown spots on leaves",
-                "Yellowing of leaf edges"
-            ],
-            "treatment": [
-                "Use recommended fungicide",
-                "Remove infected leaves"
-            ],
-            "prevention": [
-                "Avoid excess irrigation",
-                "Use disease-resistant seeds"
-            ]
-        }
-    }
-def predict_disease(image_path):
-    return {
-        "disease": "Leaf Blight",
-        "confidence": 92.5,
-        "advice": {
-            "symptoms": [
-                "Brown spots on leaves",
-                "Yellowing of leaf edges"
-            ],
-            "treatment": [
-                "Use recommended fungicide",
-                "Remove infected leaves"
-            ],
-            "prevention": [
-                "Avoid excess irrigation",
-                "Use disease-resistant seeds"
-            ]
-        }
-    }
+
+    except Exception as e:
+        return {"error": str(e)}
