@@ -1,0 +1,237 @@
+{
+  "Pepper__bell___Bacterial_spot": {
+    "disease": "Pepper Bell Bacterial Spot",
+    "symptoms": [
+      "पानांवर लहान काळे ठिपके",
+      "पान पिवळं पडणं",
+      "फळांवर खडबडीत डाग"
+    ],
+    "treatment": [
+      "कॉपर आधारित फंगिसाइड फवारणी करा",
+      "संक्रमित झाडे काढून टाका"
+    ],
+    "prevention": [
+      "स्वच्छ बियाणे वापरा",
+      "पाणी फवारणी टाळा",
+      "शेतीत हवा खेळती ठेवा"
+    ]
+  },
+
+  "Pepper__bell___healthy": {
+    "disease": "Healthy Pepper Plant",
+    "symptoms": [
+      "पाने हिरवी आणि तजेलदार"
+    ],
+    "treatment": [
+      "उपचाराची गरज नाही"
+    ],
+    "prevention": [
+      "नियमित पाणी",
+      "संतुलित खत वापरा"
+    ]
+  },
+
+  "Potato___Early_blight": {
+    "disease": "Potato Early Blight",
+    "symptoms": [
+      "पानांवर वर्तुळाकार तपकिरी डाग",
+      "पाने सुकायला लागतात"
+    ],
+    "treatment": [
+      "Mancozeb फंगिसाइड वापरा",
+      "संक्रमित पाने काढा"
+    ],
+    "prevention": [
+      "पीक फेरपालट करा",
+      "जमिनीत पाणी साचू देऊ नका"
+    ]
+  },
+
+  "Potato___Late_blight": {
+    "disease": "Potato Late Blight",
+    "symptoms": [
+      "पानांवर मोठे काळे डाग",
+      "पाने लवकर सुकतात"
+    ],
+    "treatment": [
+      "Metalaxyl फंगिसाइड फवारणी",
+      "संक्रमित झाडे काढून टाका"
+    ],
+    "prevention": [
+      "जास्त ओलावा टाळा",
+      "हवेशीर अंतर ठेवा"
+    ]
+  },
+
+  "Potato___healthy": {
+    "disease": "Healthy Potato Plant",
+    "symptoms": [
+      "पाने हिरवी व निरोगी"
+    ],
+    "treatment": [
+      "उपचार आवश्यक नाही"
+    ],
+    "prevention": [
+      "योग्य खत व्यवस्थापन",
+      "नियमित निरीक्षण"
+    ]
+  },
+
+  "Tomato_Bacterial_spot": {
+    "disease": "Tomato Bacterial Spot",
+    "symptoms": [
+      "पानांवर लहान काळे ठिपके",
+      "पाने गळतात"
+    ],
+    "treatment": [
+      "कॉपर फंगिसाइड वापरा",
+      "संक्रमित झाडे काढा"
+    ],
+    "prevention": [
+      "स्वच्छ बियाणे",
+      "ओलावा टाळा"
+    ]
+  },
+
+  "Tomato_Early_blight": {
+    "disease": "Tomato Early Blight",
+    "symptoms": [
+      "पानांवर तपकिरी गोल डाग",
+      "पाने पिवळी पडतात"
+    ],
+    "treatment": [
+      "Chlorothalonil फंगिसाइड",
+      "संक्रमित पाने काढा"
+    ],
+    "prevention": [
+      "मल्चिंग करा",
+      "जमिनीची स्वच्छता ठेवा"
+    ]
+  },
+
+  "Tomato_Late_blight": {
+    "disease": "Tomato Late Blight",
+    "symptoms": [
+      "पानांवर मोठे काळे डाग",
+      "पाने झपाट्याने सुकतात"
+    ],
+    "treatment": [
+      "Mancozeb किंवा Metalaxyl फवारणी",
+      "संक्रमित पाने काढा"
+    ],
+    "prevention": [
+      "ओलावा कमी ठेवा",
+      "हवेशीर लागवड करा"
+    ]
+  },
+
+  "Tomato_Leaf_Mold": {
+    "disease": "Tomato Leaf Mold",
+    "symptoms": [
+      "पानांच्या खालच्या बाजूस बुरशी",
+      "पाने पिवळी पडतात"
+    ],
+    "treatment": [
+      "सल्फर फंगिसाइड",
+      "हवेशीर वातावरण ठेवा"
+    ],
+    "prevention": [
+      "जास्त पाणी टाळा",
+      "ग्रीनहाऊस हवेशीर ठेवा"
+    ]
+  },
+
+  "Tomato_Septoria_leaf_spot": {
+    "disease": "Tomato Septoria Leaf Spot",
+    "symptoms": [
+      "लहान पांढरे डाग",
+      "पाने सुकतात"
+    ],
+    "treatment": [
+      "फंगिसाइड फवारणी",
+      "संक्रमित पाने काढा"
+    ],
+    "prevention": [
+      "पीक फेरपालट",
+      "स्वच्छ शेती"
+    ]
+  },
+
+  "Tomato_Spider_mites_Two_spotted_spider_mite": {
+    "disease": "Tomato Spider Mites",
+    "symptoms": [
+      "पानांवर पिवळे ठिपके",
+      "सूक्ष्म जाळी"
+    ],
+    "treatment": [
+      "नीम तेल फवारणी",
+      "Acaricide वापरा"
+    ],
+    "prevention": [
+      "ओलावा संतुलित ठेवा",
+      "नियमित निरीक्षण"
+    ]
+  },
+
+  "Tomato__Target_Spot": {
+    "disease": "Tomato Target Spot",
+    "symptoms": [
+      "गोलाकार डाग",
+      "पाने गळतात"
+    ],
+    "treatment": [
+      "फंगिसाइड फवारणी",
+      "संक्रमित पाने काढा"
+    ],
+    "prevention": [
+      "हवेशीर लागवड",
+      "जास्त ओलावा टाळा"
+    ]
+  },
+
+  "Tomato__Tomato_YellowLeaf__Curl_Virus": {
+    "disease": "Tomato Yellow Leaf Curl Virus",
+    "symptoms": [
+      "पाने वाकडी होतात",
+      "झाडाची वाढ खुंटते"
+    ],
+    "treatment": [
+      "उपचार उपलब्ध नाही",
+      "संक्रमित झाडे काढा"
+    ],
+    "prevention": [
+      "Whitefly नियंत्रण",
+      "प्रतिरोधक वाण वापरा"
+    ]
+  },
+
+  "Tomato__Tomato_mosaic_virus": {
+    "disease": "Tomato Mosaic Virus",
+    "symptoms": [
+      "पानांवर ठिपके",
+      "पाने वाकडी"
+    ],
+    "treatment": [
+      "उपचार नाही",
+      "संक्रमित झाडे काढा"
+    ],
+    "prevention": [
+      "स्वच्छ साधने वापरा",
+      "संक्रमित झाडे नष्ट करा"
+    ]
+  },
+
+  "Tomato_healthy": {
+    "disease": "Healthy Tomato Plant",
+    "symptoms": [
+      "पाने हिरवी व निरोगी"
+    ],
+    "treatment": [
+      "उपचार आवश्यक नाही"
+    ],
+    "prevention": [
+      "योग्य खत",
+      "नियमित पाणी"
+    ]
+  }
+}

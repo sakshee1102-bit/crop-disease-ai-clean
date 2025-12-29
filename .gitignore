@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.pyc
+venv/
+
+# Datasets (ignore heavy)
+dataset/
+PlantVillage/
+
+# Uploads & images
+uploads/
+*.jpg
+*.png
+*.jpeg
+
+# Models
+model/
+*.h5

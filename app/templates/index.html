@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Crop Disease Detection System</title>
+
+    <!-- LOAD CSS FROM static_files -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+    <link rel="stylesheet" href="../static_files/style.css" />
+  </head>
+  <body>
+    <!-- HEADER -->
+    <header>
+      <h1>🌾 Crop Disease Detection System</h1>
+      <p>AI-based Crop Disease Detection using CNN</p>
+    </header>
+
+    <!-- MAIN CONTAINER -->
+    <div class="container">
+      <!-- LEFT SIDE: IMAGE UPLOAD -->
+      <div class="card left">
+        <h2>Upload Leaf Image</h2>
+
+        <input type="file" id="imageInput" accept="image/*" />
+
+        <div class="image-box">
+          <img id="preview" alt="Leaf Preview" />
+        </div>
+
+        <button onclick="uploadImage()">Detect Disease</button>
+      </div>
+
+      <!-- RIGHT SIDE: RESULT -->
+      <div class="card right">
+        <h2>Detection Result</h2>
+
+        <div id="result">
+          <p class="placeholder">Upload an image and click "Detect Disease"</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+      <p>Developed by Shubham jare & Tanishka Shinde</p>
+    </footer>
+
+    <!-- LOAD JS FROM static_files -->
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+  </body>
+</html>

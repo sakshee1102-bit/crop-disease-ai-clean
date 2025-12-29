@@ -1,0 +1,51 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #9acd32;
+    margin: 0;
+    padding: 20px;
+}
+
+h1 {
+    color: white;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.main {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+}
+
+.left, .right {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 40%;
+}
+
+img {
+    width: 250px;
+    border: 2px solid green;
+}
+
+button {
+    padding: 10px 20px;
+    background: darkgreen;
+    color: white;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+button:hover {
+    background: green;
+}
+
+#result {
+    margin-top: 10px;
+}
+
+#result h3 {
+    color: darkgreen;
+}
