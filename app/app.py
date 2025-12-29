@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, jsonify
+from flask_cors import CORS
 import os
 from app.predict_logic import predict_disease
-
 from werkzeug.utils import secure_filename
 
 app = Flask(
@@ -10,15 +10,17 @@ app = Flask(
     template_folder="templates"
 )
 
-# ---------- CONFIG ----------
+CORS(app)
+
 UPLOAD_FOLDER = "uploads"
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
-# ---------- ROUTES ----------
+
 @app.route("/")
 def home():
     return render_template("index.html")
+
 
 @app.route("/predict", methods=["POST"])
 def predict():
@@ -36,8 +38,7 @@ def predict():
     result = predict_disease(path)
     return jsonify(result)
 
-# ---------- MAIN ----------
+
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
-# render-redeploy-fix

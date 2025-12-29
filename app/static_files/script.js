@@ -12,7 +12,8 @@ function uploadImage() {
     const formData = new FormData();
     formData.append("image", file);
 
-    fetch("/predict", {
+    fetch("https://crop-disease-ai-clean.onrender.com/predict", {
+
         method: "POST",
         body: formData
     })
