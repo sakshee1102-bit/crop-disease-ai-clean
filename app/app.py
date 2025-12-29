@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, jsonify
 import os
-from predict_logic import predict_disease
+from app.predict_logic import predict_disease
+
 from werkzeug.utils import secure_filename
 
 app = Flask(
