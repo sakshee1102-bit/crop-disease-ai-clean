@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <title>Crop Disease Detection</title>
-</head>
-<body>
+  </head>
+  <body>
     <h2>Crop Disease Detection</h2>
 
     <input type="file" id="imageInput" />
-    <br><br>
+    <br /><br />
+    <button onclick="uploadImage()">Detect Disease</button>
 
-    <button onclick="uploadImage()">Predict</button>
-
-    <br><br>
-    <img id="preview" width="200">
+    <br /><br />
+    <img id="preview" width="200" />
     <div id="result"></div>
 
     <script src="/static_files/script.js"></script>
-</body>
+    
+  </body>
 </html>
